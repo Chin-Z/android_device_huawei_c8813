@@ -25,18 +25,26 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# mount point	fstype		device			[device2]		[length=]
+# mount point	fstype		device			[device2]
 
-
-/boot		mtd		boot
-/cache		yaffs2		cache
-/data		yaffs2		userdata        length=-16384
-/misc		mtd		misc
-/recovery	mtd		recovery
-/sdcard		vfat		/dev/block/mmcblk0p1	/dev/block/mmcblk0
-/system		yaffs2		system
+# /* < DTS2012031506621  lishubin 20120321 begin */
+#/* use new partition order for some partition */
+#/* < DTS2012011906026 chendeng 20120120 begin */
+/boot		emmc		/dev/block/mmcblk0p12
+/cache		ext4		/dev/block/mmcblk0p15
+# /* < DTS2012062603367  lizhigang 20120626 begin */
+/data		ext4		/dev/block/mmcblk0p18   length=-16384
+#/* < DTS2012062603367 lizhigang 20120626 end */
+/recovery       emmc            /dev/block/mmcblk0p13
+/misc		emmc		/dev/block/mmcblk0p7
+/sdcard		vfat		/dev/block/mmcblk1p1	/dev/block/mmcblk1
+/system		ext4		/dev/block/mmcblk0p17
+/sys_boot	vfat		/dev/block/mmcblk0p3
+/fat            vfat		/dev/block/mmcblk0p3
+/HWUserData	vfat		/dev/block/mmcblk0p19
 #/*< DTS2012020804291 weizhonghui 20120208 begin */
-/HWUserData     yaffs2          userdata2               (null)
-/cust		yaffs2		cust
+/cust		ext4		/dev/block/mmcblk0p16
 #/* DTS2012020804291 weizhonghui 20120208 end >*/
+#/* DTS2012011906026 chendeng 20120120 end > */
+# /* DTS2012031506621  lishubin 20120321 end > */
 
