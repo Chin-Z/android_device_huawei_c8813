@@ -34,3 +34,9 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 # Additional config
 RECOVERY_NAME := ClockworkMod Recovery
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
+
+# Bluetooth
+BOARD_HAVE_BLUETOOTH := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/huawei/c8813/include/bluetooth
+
+# WIFI

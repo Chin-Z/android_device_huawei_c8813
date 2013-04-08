@@ -22,3 +22,11 @@ $(call inherit-product, build/target/product/full.mk)
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 PRODUCT_NAME := full_c8813
 PRODUCT_DEVICE := c8813
+
+PRODUCT_AAPT_CONFIG := normal hdpi
+PRODUCT_AAPT_PREF_CONFIG := hdpi
+
+PRODUCT_COPY_FILES += \
+    device/huawei/c8813/config/init.huawei.rc:root/init.huawei.rc \
+    device/huawei/c8813/config/init.usb.rc:root/init.usb.rc \
+    device/huawei/c8813/config/ueventd.huawei.rc:root/ueventd.huawei.rc
