@@ -30,3 +30,5 @@ PRODUCT_COPY_FILES += \
     device/huawei/c8813/config/init.huawei.rc:root/init.huawei.rc \
     device/huawei/c8813/config/init.usb.rc:root/init.usb.rc \
     device/huawei/c8813/config/ueventd.huawei.rc:root/ueventd.huawei.rc
+PRODUCT_COPY_FILES += \
+          device/huawei/c8813/config/init.recovery.huawei.rc:root/init.recovery.huawei.rc
