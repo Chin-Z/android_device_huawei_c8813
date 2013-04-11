@@ -36,3 +36,6 @@ lib/libaudioalsa.so
 lib/modules/pppoe.ko
 lib/modules/pppoe_dzc.ko
 xbin/RfTest
+wifi/fw_4330_b2.bin
+wifi/fw_4330_b2_p2p_ap.bin
+wifi/nvram_4330.txt

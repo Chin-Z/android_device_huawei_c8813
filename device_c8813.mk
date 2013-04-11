@@ -27,8 +27,10 @@ PRODUCT_AAPT_CONFIG := normal hdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 PRODUCT_COPY_FILES += \
+    device/huawei/c8813/modules/dhd_4330.ko:system/wifi/dhd_4330.ko \
     device/huawei/c8813/config/init.huawei.rc:root/init.huawei.rc \
     device/huawei/c8813/config/init.usb.rc:root/init.usb.rc \
     device/huawei/c8813/config/ueventd.huawei.rc:root/ueventd.huawei.rc
+
 PRODUCT_COPY_FILES += \
           device/huawei/c8813/config/init.recovery.huawei.rc:root/init.recovery.huawei.rc
