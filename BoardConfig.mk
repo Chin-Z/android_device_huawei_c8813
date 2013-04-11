@@ -31,9 +31,30 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # BOARD_KERNEL_PAGESIZE*64
 TARGET_PREBUILT_KERNEL := device/huawei/c8813/kernel
 
 BOARD_HAS_NO_SELECT_BUTTON := true
+#
 # Additional config
+#
+
+# Recovery
 RECOVERY_NAME := ClockworkMod Recovery
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
+BOARD_HAS_NO_SELECT_BUTTON := true
+#BOARD_UMS_LUNFILE := true
+#BOARD_RECOVERY_ALWAYS_WIPES := true
+#BOARD_RECOVERY_HANDLES_MOUNT := true
+#BOARD_TOUCH_RECOVERY := true
+#RECOVERY_EXTEND_NANDROID_MENU := true
+#TARGET_USE_CUSTOM_LUN_FILE_PATH := true
+#TARGET_DEVICE := true
+#BOARD_RECOVERY_DEFINES :=
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/huawei/c8813/recovery/keys.c
+BOARD_CUSTOM_GRAPHICS := ../../../device/huawei/c8813/recovery/graphics.c
+#TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+BOARD_USE_CUSTOM_RECOVERY_FONT := \"font_10x18.h\" # default is font_10x18.h
+#BOARD_USES_BML_OVER_MTD := true
+TARGET_USERIMAGES_USE_EXT4 := ture
+TARGET_RECOVERY_FSTAB := device/huawei/c8813/recovery.fstab # default is recovery.fstab
+#BOARD_RECOVERY_RFS_CHECK := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
