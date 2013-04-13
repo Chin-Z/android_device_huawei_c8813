@@ -30,7 +30,6 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # BOARD_KERNEL_PAGESIZE*64
 
 TARGET_PREBUILT_KERNEL := device/huawei/c8813/kernel
 
-BOARD_HAS_NO_SELECT_BUTTON := true
 #
 # Additional config
 #
@@ -88,3 +87,6 @@ WIFI_DRIVER_MODULE_NAME := "dhd_4330"
 #BOARD_LEGACY_NL80211_STA_EVENTS := true
 #BOARD_NO_APSME_ATTR := true
 #BOARD_WLAN_DEVICE := qcwcn
+
+# EGL
+BOARD_EGL_CFG := device/huawei/c8813/config/egl.cfg
