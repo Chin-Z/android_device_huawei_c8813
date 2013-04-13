@@ -53,7 +53,7 @@ BOARD_CUSTOM_GRAPHICS := ../../../device/huawei/c8813/recovery/graphics.c
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"font_10x18.h\" # default is font_10x18.h
 #BOARD_USES_BML_OVER_MTD := true
 TARGET_USERIMAGES_USE_EXT4 := ture
-TARGET_RECOVERY_FSTAB := device/huawei/c8813/recovery.fstab # default is recovery.fstab
+TARGET_RECOVERY_FSTAB := device/huawei/c8813/recovery/recovery.fstab # default is recovery.fstab
 #BOARD_RECOVERY_RFS_CHECK := true
 
 # Bluetooth
