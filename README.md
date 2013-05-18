@@ -12,3 +12,7 @@ Choose a Target
 Build Recovery
 ---------------
 	make -j4 recoveryimage;
+
+Build System
+---------------
+	brunch cm_c8813-eng;

@@ -1,0 +1,134 @@
+on early-init
+    start ueventd
+
+on init
+    export PATH /sbin:/system/sbin:/system/bin:/system/xbin
+    export LD_LIBRARY_PATH /vendor/lib:/system/lib
+    export ANDROID_ROOT /system
+    export ANDROID_ROOT /system
+    export ANDROID_DATA /data
+    export EXTERNAL_STORAGE /sdcard
+
+    symlink /system/etc /etc
+
+    mkdir fat
+    mkdir sdcard
+    mkdir HWUserData
+    mkdir /system
+    mkdir /data
+    mkdir /cache
+    mount /tmp /tmp tmpfs
+
+    chown root shell /tmp
+    chmod 0775 /tmp
+
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 18D1
+    write /sys/class/android_usb/android0/idProduct D001
+    write /sys/class/android_usb/android0/functions adb
+    write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
+    write /sys/class/android_usb/android0/iProduct ${ro.product.model}
+    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
+
+
+    mkdir /.cust_backup
+    mkdir /cust 
+
+on emmc-fs
+    wait /dev/block/mmcblk0p17
+
+    exec /sbin/e2fsck_s -p /dev/block/mmcblk0p16
+    exec /sbin/resize2fs_s /dev/block/mmcblk0p16
+
+    exec /sbin/e2fsck_s -p /dev/block/mmcblk0p17
+    exec /sbin/resize2fs_s /dev/block/mmcblk0p17
+
+    exec /sbin/e2fsck_s -p /dev/block/mmcblk0p18
+    exec /sbin/resize2fs_s /dev/block/mmcblk0p18
+
+    mount ext4 /dev/block/mmcblk0p17 /system rw barrier=1
+
+on fs
+    #mount_all /fstab.c8813
+    mount ext4 /dev/block/mmcblk0p17 /system rw
+
+on boot
+    ifup lo
+    hostname localhost
+    domainname localdomain
+    class_start default
+    chmod 0660 /dev/smd0
+    chown system system /dev/smd0
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor  "ondemand"
+
+#service ueventd     /sbin/ueventd
+#service adbd        /sbin/adbd
+
+service charge	/sbin/charge
+service test_diag /sbin/test_diag
+service atserver /sbin/atserver
+    oneshot
+service rmt_oeminfo /sbin/rmt_oeminfo
+    oneshot
+service rmt_storage /sbin/rmt_storage
+service port-bridge /sbin/port-bridge /dev/smd0 /dev/ttyGS0
+service hw_scsi_switch /sbin/hw_scsi_switch
+service oem_rpc_svc /sbin/oem_rpc_svc
+    oneshot
+
+service ueventd /sbin/ueventd
+    critical
+
+service adbd /sbin/adbd recovery
+    disabled
+
+service recovery /sbin/recovery
+    disabled
+
+service charged /sbin/charged
+    oneshot
+
+on property:ro.debuggable=1
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+
+on property:service.adb.root=1
+    write /sys/class/android_usb/android0/enable 0
+    restart adbd
+    write /sys/class/android_usb/android0/enable 1
+
+service huawei-sh /system/bin/sh /init.huawei.sh
+    user root
+    oneshot
+
+on property:sys.usb.config=mass_storage,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12d1
+    write /sys/class/android_usb/android0/idProduct 1038
+    # do not use autorun.iso in recovery because HOTA may update this file
+    write /sys/class/android_usb/android0/f_mass_storage/nluns ${ro.hw.usb.google.nluns}
+    write /sys/class/android_usb/android0/f_mass_storage/cdrom_index ${ro.hw.usb.google.cdrom}
+    #write /sys/class/android_usb/android0/f_mass_storage/lun2/file /system/cdrom/autorun.iso
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=serial,mass_storage,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12d1
+    write /sys/class/android_usb/android0/idProduct ${ro.hw.usb.pid.normal}
+    write /sys/class/android_usb/android0/iSerial cleanup
+    write /sys/class/android_usb/android0/f_diag/clients  diag
+    write /sys/class/android_usb/android0/f_serial/transports smd,smd
+    write /sys/class/android_usb/android0/f_mass_storage/nluns 1
+    write /sys/class/android_usb/android0/f_mass_storage/cdrom_index 0
+    # do not use autorun.iso in recovery because HOTA may update this file 
+    #write /sys/class/android_usb/android0/f_mass_storage/lun0/file /system/cdrom/autorun.iso
+    write /sys/class/android_usb/android0/functions serial,mass_storage,adb,diag
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:persist.sys.usb.config=*
+    setprop sys.usb.config ${persist.sys.usb.config}
