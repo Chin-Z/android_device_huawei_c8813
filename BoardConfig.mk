@@ -55,7 +55,6 @@ TARGET_PREBUILT_KERNEL := device/huawei/c8813/kernel
 # Recovery
 RECOVERY_NAME := ClockworkMod Recovery(TTLD)
 BOARD_HAS_NO_SELECT_BUTTON := true
-#BOARD_UMS_LUNFILE := true
 #BOARD_RECOVERY_ALWAYS_WIPES := true
 #BOARD_RECOVERY_HANDLES_MOUNT := true
 #RECOVERY_EXTEND_NANDROID_MENU := true
@@ -72,7 +71,7 @@ BOARD_CUSTOM_GRAPHICS := ../../../device/huawei/c8813/recovery/graphics.c
 #BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\" # default is font_10x18.h
 TARGET_RECOVERY_INITRC := device/huawei/c8813/recovery/init.rc
 TARGET_RECOVERY_FSTAB := device/huawei/c8813/recovery/recovery.fstab # default is recovery.fstab
-BOARD_UMS_LUNFILE := /sys/devices/platform/usb_mass_storage/lun%d/file
+BOARD_UMS_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun%d/file
 
 # Audio
 TARGET_QCOM_AUDIO_VARIANT := true
