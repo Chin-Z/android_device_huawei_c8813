@@ -11,9 +11,12 @@ on init
 
     symlink /system/etc /etc
 
-    mkdir fat
-    mkdir sdcard
-    mkdir HWUserData
+    mkdir /fat
+    mkdir /sdcard
+    mkdir /sd-ext
+    mkdir /HWUserData
+    mkdir /external_sd
+    mkdir /emmc
     mkdir /system
     mkdir /data
     mkdir /cache
